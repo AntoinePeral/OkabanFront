@@ -1,4 +1,4 @@
-const listModule = require('./lists')
+//const listModule = require('./lists') // Le require ne fonctionne pas dans js coté navigateur !!
 // on objet qui contient des fonctions
 var app = {
 
