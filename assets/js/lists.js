@@ -53,6 +53,18 @@ const listModule = {
         newList.querySelector("h2").addEventListener("dblclick", listModule.showEditListForm);
         newList.querySelector('.edit-list-form').addEventListener("submit", listModule.handleEditListForm);
         newList.querySelector('.button--delete-list').addEventListener("click", listModule.deleteList);
+        
+        // Drag n Drop des cartes au sein de la liste
+        // on récupère d'abord le container qui contient les cartes
+        const cardContainer = newList.querySelector(".panel-block");
+
+        // On créé l'instance de Sortable :
+        Sortable.create(cardContainer, {
+          group: "list",
+          draggable: ".box",
+          onEnd: cardModule.handleDragCard
+        })
+
         //Insérer la nouvelle liste en premiere position
         const listContainer = document.querySelector("#listContainer");
         const firstList = listContainer.querySelector(".panel"); //Désigne la premiere liste dans listContainer
