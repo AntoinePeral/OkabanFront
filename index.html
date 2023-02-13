@@ -78,6 +78,13 @@
                             <input type="hidden" name="list_id">
                         </div>
                     </div>
+                    <div>
+                        <label class="label">Couleur</label>
+                        <div class="control">
+                            <input type="color" class="input" name="color" value="#ff00ff"
+                                placeholder="Couleur de la carte">
+                        </div>
+                    </div>
                 </section>
                 <footer class="modal-card-foot">
                     <button class="button is-success">Save changes</button>
@@ -101,11 +108,11 @@
                     <div class="column">
                         <h2 class="has-text-white"></h2>
 
-                        <form action="" method="POST" class="is-hidden">
+                        <form action="" method="POST" class="is-hidden edit-list-form">
                             <input type="hidden" name="list-id" value="">
                             <div class="field has-addons">
                                 <div class="control">
-                                    <input type="text" class="input is-small" name="list-name" value=""
+                                    <input type="text" class="input is-small" name="name" value=""
                                         placeholder="Nom de la liste">
                                 </div>
                                 <div class="control">
@@ -119,6 +126,11 @@
                         <a href="#" class="is-pulled-right button--add-card">
                             <span class="icon is-small has-text-white">
                                 <i class="fas fa-plus"></i>
+                            </span>
+                        </a>
+                        <a href="#" class="button--delete-list">
+                            <span class="icon is-small has-text-white">
+                                <i class="fas fa-trash"></i>
                             </span>
                         </a>
                     </div>
@@ -138,13 +150,30 @@
                 <div class="column card-name">
 
                 </div>
+                <form action="" method="POST" class="is-hidden edit-card-form">
+                    <input type="hidden" name="card-id" value="">
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input type="text" class="input is-small" name="title" value=""
+                                placeholder="Nom de la carte">
+                        </div>
+                        <div class="control">
+                            <button class="button is-small is-success">Valider</button>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <input type="color" class="input" name="color" value="" placeholder="Couleur de la carte">
+                        </div>
+                    </div>
+                </form>
                 <div class="column is-narrow">
-                    <a href="#">
+                    <a href="#" class="edit-card-icon">
                         <span class="icon is-small has-text-primary">
                             <i class="fas fa-pencil-alt"></i>
                         </span>
                     </a>
-                    <a href="#">
+                    <a href="#" class="delete-card-icon">
                         <span class="icon is-small has-text-danger">
                             <i class="fas fa-trash-alt"></i>
                         </span>

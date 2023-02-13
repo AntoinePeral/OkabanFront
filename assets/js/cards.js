@@ -52,13 +52,84 @@ const cardModule = {
     const newCard = document.importNode(template.content, true);
     // changer les valeurs qui vont bien
     newCard.querySelector('.card-name').textContent = card.title;
+    const cardDOM = newCard.querySelector(".box");
+    newCard.querySelector(".box").dataset.cardId = card.id;
+    newCard.querySelector("form input[name='card-id']").value = card.id;
 
-    newCard.querySelector('.box').dataset.cardId = card.id;
+    newCard.querySelector(".box").style.backgroundColor = card.color;
+    newCard.querySelector('input[name="color"]').value = card.color;
 
-    newCard.querySelector('.box').style.backgroundColor = card.color;
-
+    
+    newCard.querySelector(".edit-card-icon").addEventListener("click", cardModule.showEditCardForm);
+    newCard.querySelector(".edit-card-form").addEventListener("submit", cardModule.handleEditCardForm);
+    newCard.querySelector(".delete-card-icon").addEventListener("click", cardModule.deleteCard );
     // insérer la nouvelle carte dans la bonne liste
     const theGoodList = document.querySelector(`[data-list-id="${card.list_id}"]`);
     theGoodList.querySelector('.panel-block').appendChild(newCard);
   },
+
+  showEditCardForm: function(event) {
+    /** Je veux afficher le formulaire d'édition de carte */ 
+    //Je me repositionne sur la div de la card
+    const cardDOM = event.target.closest('.box');
+    // Je sélectionne le nom de la carte et je le cache
+    cardDOM.querySelector('.card-name').classList.add("is-hidden");
+    // Je veux afficher le formulaire
+    cardDOM.querySelector(".edit-card-form").classList.remove("is-hidden");
+  },
+
+  handleEditCardForm: async function(event) {
+    // On coupe le rechargement de la page (comportement par défaut d'un form);
+    event.preventDefault();
+    // On extrait les données du formulaire grâce à la classe FormData
+    const formData = new FormData(event.target);
+    // On selectionne le titre de la carte
+    const cardTitle = event.target.previousElementSibling;
+
+    try {
+      // On appelle l'API via la route /cards/:id en mode PUT
+      const response = await fetch(`${utilModule.base_url}/cards/${formData.get('card-id')}`, {
+        method: 'PUT',
+        body: formData
+      });
+      // On récupère la data (la liste modifiée ou l'erreur)
+      const jsonData = await response.json();
+      // Si la réponse n'est pas ok, on créé une nouvelle erreur, qui sera récupérée directement par le catch
+      if(!response.ok) { throw new Error("Impossible d'éditer la carte !")}
+
+      //Je veux modifiere le titre de la liste dans le DOM
+      cardTitle.textContent = jsonData.title;
+      event.target.closest(".box").style.backgroundColor = jsonData.color;
+      
+    } catch (error) {
+      console.log(error);
+      alert(error);
+    }
+    // On cache le formulaire (quelque soit le résultat du traitement)
+    event.target.classList.add('is-hidden');
+    cardTitle.classList.remove('is-hidden');
+
+  },
+
+  deleteCard: async function(event){
+    // On récupère la carte dans le DOM
+    const cardDOM = event.target.closest('.box');
+
+    // On fait le call à l'API pour supprimer la carte en question
+    try {
+      const response = await fetch(`${utilModule.base_url}/cards/${cardDOM.dataset.cardId}`, {
+        method: 'DELETE'
+      });
+      // On récupère la réponse de la db (si c'est ok, elle nous envoie une string qui dit "OK")
+      const jsonData = await response.json();
+
+      if (!response.ok) { throw new Error("Impossible de supprimer la carte !") }
+      // On supprime la carte du DOM
+      cardDOM.remove();
+    } catch (error) {
+      console.log(error);
+      alert(error);
+    }
+  }
+
 }

@@ -6,3 +6,7 @@ body {
 .card-lists {
   overflow-x: auto;
 }
+
+.button--delete-list {
+  padding-right: 0.5rem;
+}
