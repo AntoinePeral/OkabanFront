@@ -38,6 +38,10 @@ var app = {
     // formulaire "ajouter une carte"
     const addCardForm = document.querySelector('#addCardModal form');
     addCardForm.addEventListener('submit', cardModule.handleAddCardForm);
+
+    // formulaire "ajouter un tag à une carte"
+    const associateTagForm = document.querySelector("#associateTagModal form");
+    associateTagForm.addEventListener("submit", tagModule.associateTagToCard);
   },  
 
   

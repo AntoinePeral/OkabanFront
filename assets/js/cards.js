@@ -63,6 +63,7 @@ const cardModule = {
     newCard.querySelector(".edit-card-icon").addEventListener("click", cardModule.showEditCardForm);
     newCard.querySelector(".edit-card-form").addEventListener("submit", cardModule.handleEditCardForm);
     newCard.querySelector(".delete-card-icon").addEventListener("click", cardModule.deleteCard );
+    newCard.querySelector(".associate-tag-icon").addEventListener("click", tagModule.showAssociateTagModal);
     // insérer la nouvelle carte dans la bonne liste
     const theGoodList = document.querySelector(`[data-list-id="${card.list_id}"]`);
     theGoodList.querySelector('.panel-block').appendChild(newCard);

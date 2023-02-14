@@ -95,6 +95,31 @@
         </div>
     </div>
 
+    <div class="modal" id="associateTagModal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <form action="" method="POST">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Associer un tag à cette carte</p>
+                    <button class="delete close" type="button" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <div class="field">
+                        <label class="label" for="tags-select">Tag</label>
+                            <select name="tag_id" id="tags-select">
+
+                            </select>
+                            <input type="hidden" name="card_id" value="">
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button is-success">Save changes</button>
+                    <button class="button close" type="button">Cancel</button>
+                </footer>
+            </form>
+        </div>
+    </div>
+
     <!-- Les templates sont un peu comme les partials en ejs. Ce sont des modèles d'éléments qui sont réutilisables.
     Par exemple si on veut créer une liste, on peut reutiliser le template qui possède l'id "list-template"
     Ici on a créé le template a partir d'une liste déjà existante plus haut -->
@@ -172,6 +197,11 @@
                     </div>
                 </form>
                 <div class="column is-narrow">
+                    <a href="#" class="associate-tag-icon">
+                        <span class="icon is-small has-text-primary">
+                            <i class="fas fa-tag"></i>
+                        </span>
+                    </a>
                     <a href="#" class="edit-card-icon">
                         <span class="icon is-small has-text-primary">
                             <i class="fas fa-pencil-alt"></i>
