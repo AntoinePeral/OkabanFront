@@ -130,6 +130,53 @@ const cardModule = {
       console.log(error);
       alert(error);
     }
+  },
+
+  handleDragCard: function(event) {
+    const oldList = event.from;
+    const newList = event.to;
+    // On sélectionne dans la oldList toutes les cards
+    let cardsDOM = oldList.querySelectorAll(".box");
+    // Je veux modifier toutes les cartes de l'ancienne liste
+    cardModule.updateAllCards(cardsDOM)
+    
+    // Je veux vérifier si il y a une deuxieme liste impliquée
+    if (oldList === newList) { return; }
+    //On cherche l'id de la nouvelle liste
+    const listId = newList.closest(".panel").dataset.listId;
+    // On met a jour cardsDOM pour selectionner les cartes de la nouvelle liste
+    cardsDOM = newList.querySelectorAll(".box");
+    
+    // Je veux modifier toutes les cartes de la nouvelle liste
+    cardModule.updateAllCards(cardsDOM, listId);
+  },
+
+  updateAllCards: function(cardsDOM, listId = null){
+    // On aura besoin d'une boucle pour traiter chaque carte dans cardsDOM
+    
+    cardsDOM.forEach(async (cardDOM, index) => {
+      
+      //On créé un formData vide
+      const formData = new FormData();
+      //On ajoute une valeur à ce formData, la valeur sera la nouvelle position de la carte
+      formData.set("position", index); // formData {position: 0}
+
+      //Si on a un listId, on l'ajoute au formData
+      if(listId) { formData.set("list_id", listId) }
+
+      try {
+        const response = await fetch(`${utilModule.base_url}/cards/${cardDOM.dataset.cardId}`, {
+          method: "PUT",
+          body: formData
+        })
+        const jsonData = await response.json();
+
+        if(!response.ok){ throw jsonData }
+      } catch (error) {
+        console.log(error);
+        alert(error);
+      }
+    })
   }
 
 }

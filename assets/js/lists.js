@@ -68,11 +68,7 @@ const listModule = {
         //Insérer la nouvelle liste en premiere position
         const listContainer = document.querySelector("#listContainer");
         const firstList = listContainer.querySelector(".panel"); //Désigne la premiere liste dans listContainer
-        if(firstList){
-          firstList.before(newList);
-        } else {
-          listContainer.appendChild(newList);
-        }
+        listContainer.appendChild(newList);
       },
 
       showEditListForm: function(event) {
@@ -135,6 +131,33 @@ const listModule = {
           console.log(error);
           alert(error);
         }
+
+      },
+
+      handleDragList: function(event) {
+        // On veut récupérer les listes dans le DOM
+        const listsDOM = document.querySelectorAll(".panel");
+        
+
+        listsDOM.forEach(async(listDOM, index) => {
+          const formData = new FormData();
+
+          formData.set("position", index);
+          try {
+            const response = await fetch(`${utilModule.base_url}/lists/${listDOM.dataset.listId}`, {
+              method: "PUT",
+              body: formData
+            })
+            const jsonData = await response.json();
+
+            if(!response.ok) { throw jsonData }
+          } catch (error) {
+            console.log(jsonData);
+            alert("Impossible de mettre à jour la liste !")
+          }
+        })
+
+
 
       }
 }

@@ -59,8 +59,18 @@ var app = {
       listModule.makeListInDOM(list)
       for(const card of list.cards){
         cardModule.makeCardInDOM(card);
+        for(const tag of card.tags) {
+          tagModule.makeTagInDOM(tag);
+        }
       }
     }
+
+    const listContainer = document.querySelector(".card-lists");
+
+    Sortable.create(listContainer, {
+      draggable: ".panel",
+      onEnd: listModule.handleDragList
+    })
   }
 
 };
