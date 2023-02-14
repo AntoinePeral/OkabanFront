@@ -1,0 +1,25 @@
+{
+  "name": "okanban-front",
+  "version": "1.0.0",
+  "description": "On termine les fonctionnalités de notre oKanban !",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "browserify -e src/app.js -o assets/js/bundle.min.js -p tinyify"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/O-clock-Ohm/oKanban-front.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/O-clock-Ohm/oKanban-front/issues"
+  },
+  "homepage": "https://github.com/O-clock-Ohm/oKanban-front#readme",
+  "dependencies": {
+    "browserify": "^17.0.0",
+    "tinyify": "^4.0.0"
+  }
+}
